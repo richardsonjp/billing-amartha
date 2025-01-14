@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS borrower;
+
+DROP TABLE IF EXISTS loan;
+
+DROP TABLE IF EXISTS billing;
