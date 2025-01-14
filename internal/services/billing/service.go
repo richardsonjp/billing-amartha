@@ -46,6 +46,5 @@ func (s *billingService) DoPaymentBilling(ctx context.Context, loanID string) er
 		}
 	}
 
-	s.borrowerService.ToggleBorrowerStatus(ctx, borrower.BorrowerUpdatePayload{BorrowerID: loanData.BorrowerID, Status: "normal"})
-	return nil
+	return s.borrowerService.ToggleBorrowerStatus(ctx, borrower.BorrowerUpdatePayload{BorrowerID: loanData.BorrowerID, Status: "normal"})
 }
