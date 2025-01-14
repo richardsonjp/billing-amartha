@@ -1,6 +1,6 @@
 ---
 
-# mini service wallet JULO
+# mini service Billing Amartha
 
 ---
 
