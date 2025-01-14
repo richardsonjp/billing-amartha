@@ -73,6 +73,19 @@ func DateDifferenceCounter(date1 time.Time, date2 time.Time) int {
 	return int(date1.Sub(date2).Hours() / 24)
 }
 
+func WeekDifferenceCounter(date1, date2 time.Time) int {
+	// Get the difference in days using your helper function
+	daysDifference := DateDifferenceCounter(date1, date2)
+
+	// Calculate the number of weeks (rounding up if there are leftover days)
+	weeks := daysDifference / 7
+	if daysDifference%7 != 0 {
+		weeks++
+	}
+
+	return weeks
+}
+
 func Parse(t string, layout string) (time.Time, error) {
 	return time.Parse(layout, t)
 }

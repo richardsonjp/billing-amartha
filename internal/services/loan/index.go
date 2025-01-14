@@ -7,6 +7,7 @@ import (
 )
 
 type LoanService interface {
+	GetByID(ctx context.Context, loanID string) (*model.Loan, error)
 	GetLoanByDayRange(ctx context.Context) ([]model.Loan, error)
 }
 

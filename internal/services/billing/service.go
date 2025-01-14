@@ -3,6 +3,7 @@ package billing
 import (
 	"context"
 	"go-skeleton/internal/model"
+	"go-skeleton/internal/services/borrower"
 )
 
 func (s *billingService) CreateBilling(ctx context.Context, payload BillingCreatePayload) error {
@@ -12,6 +13,10 @@ func (s *billingService) CreateBilling(ctx context.Context, payload BillingCreat
 		Status: "outstanding",
 	})
 	return nil
+}
+
+func (s *billingService) GetBillings(ctx context.Context, loanID string) ([]model.Billing, error) {
+	return s.billingRepo.GetByLoanID(ctx, loanID)
 }
 
 func (s *billingService) GetUnpaidBillings(ctx context.Context, loanID string) ([]model.Billing, error) {
@@ -26,7 +31,11 @@ func (s *billingService) UpdateBillingAsPaid(ctx context.Context, billing model.
 }
 
 func (s *billingService) DoPaymentBilling(ctx context.Context, loanID string) error {
-	billings, err := s.GetUnpaidBillings(ctx, loanID)
+	loanData, err := s.loanService.GetByID(ctx, loanID)
+	if err != nil {
+		return err
+	}
+	billings, err := s.GetUnpaidBillings(ctx, loanData.ID)
 	if err != nil {
 		return err
 	}
@@ -36,5 +45,7 @@ func (s *billingService) DoPaymentBilling(ctx context.Context, loanID string) er
 			return err
 		}
 	}
+
+	s.borrowerService.ToggleBorrowerStatus(ctx, borrower.BorrowerUpdatePayload{BorrowerID: loanData.BorrowerID, Status: "normal"})
 	return nil
 }

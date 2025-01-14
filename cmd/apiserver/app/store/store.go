@@ -43,7 +43,7 @@ func InitDI() {
 	// servicesWalletRepo
 	BorrowerService = service.NewBorrowerService(BorrowerRepo)
 	LoanService = service.NewLoanService(LoanRepo)
-	BillingService = service.NewBillingService(BillingRepo)
+	BillingService = service.NewBillingService(BillingRepo, BorrowerService, LoanService)
 	SchedulerService = service.NewSchedulerService(BorrowerService, LoanService, BillingService)
 
 	// handlers

@@ -11,7 +11,7 @@ func (s *borrowerService) ToggleBorrowerStatus(ctx context.Context, payload Borr
 		return err
 	}
 
-	data.Status = "delinquent"
+	data.Status = payload.Status
 
 	_, err = s.borrowerRepo.Update(ctx, data, "status")
 	return err

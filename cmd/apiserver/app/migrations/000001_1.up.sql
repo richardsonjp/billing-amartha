@@ -12,6 +12,8 @@ CREATE TABLE loan (
     amount BIGINT NOT NULL,
     interest BIGINT NOT NULL,
     total_amount BIGINT NOT NULL,
+    weekly_installment BIGINT NOT NULL,
+    total_weeks INT NOT NULL,
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP
 );
